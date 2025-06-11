@@ -1,0 +1,541 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Quicksand:wght@300;400;700&display=swap');
+
+
+
+body {
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  background: #121212;
+  color: white;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(125deg, #8854c0 0%, transparent 40%),
+    linear-gradient(225deg, #4a90e2 0%, transparent 40%),
+    linear-gradient(315deg, #45b649 0%, transparent 40%),
+    linear-gradient(45deg, #ff6b6b 0%, transparent 40%);
+  animation: gradientAnimation 15s ease infinite alternate;
+  opacity: 0.1;
+  z-index: -2;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, transparent 0%, #121212 70%);
+  z-index: -1;
+}
+
+@keyframes gradientAnimation {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.5) rotate(180deg); }
+  100% { transform: scale(1) rotate(360deg); }
+}
+
+.sparkle {
+  position: fixed;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: white;
+  pointer-events: none;
+  opacity: 0;
+  animation: sparkleAnimation 3s linear infinite;
+}
+
+@keyframes sparkleAnimation {
+  0% { transform: translateY(0) scale(0); opacity: 0; }
+  50% { opacity: 0.8; }
+  100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    rgba(136, 84, 192, 0.2) 25%,
+    rgba(74, 144, 226, 0.2) 50%,
+    rgba(255, 107, 107, 0.2) 75%,
+    transparent 100%
+  );
+  animation: rotate 4s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 45px rgba(136, 84, 192, 0.2);
+}
+
+.login-card:hover::before {
+  opacity: 1;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.login-logo {
+  width: 400px;
+  height: 150px;
+  margin-bottom: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.login-logo:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.input-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.input-group input {
+  width: calc(100% - 2rem);
+  padding: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  margin: 0 auto;
+  display: block;
+}
+
+.input-group input:focus {
+  border-color: #8854c0;
+  box-shadow: 0 0 15px rgba(136, 84, 192, 0.3);
+  transform: scale(1.02);
+}
+
+.input-group input:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.login-button {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(45deg, #8854c0, #4a90e2);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.login-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(136, 84, 192, 0.4);
+  background: linear-gradient(45deg, #4a90e2, #8854c0);
+}
+
+.login-button:hover::before {
+  left: 100%;
+}
+
+.login-button:active {
+  transform: translateY(-2px);
+}
+
+.auth-divider {
+  margin: 1.5rem 0;
+  color: rgba(255, 255, 255, 0.5);
+  position: relative;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 45%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.auth-divider::before {
+  left: 0;
+}
+
+.auth-divider::after {
+  right: 0;
+}
+
+.signup-button {
+  width: 100%;
+  padding: 1rem;
+  background: transparent;
+  border: 2px solid #8854c0;
+  border-radius: 12px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.signup-button:hover {
+  background: rgba(136, 84, 192, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(136, 84, 192, 0.2);
+}
+
+.signup-button:active {
+  transform: translateY(-2px);
+}
+
+.navbar {
+  background: rgba(136, 84, 192, 0.1);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.nav-left, .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-logo {
+  height: 32px;
+  width: 32px;
+  object-fit: contain;
+}
+
+.nav-brand {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.search-bar {
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 0.25rem;
+}
+
+.search-bar input {
+  background: none;
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  width: 200px;
+  outline: none;
+}
+
+.search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.search-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.create-button {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: #ffffff;
+  color: #8854c0;
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.profile-pic {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.content {
+  padding: 2rem;
+}
+
+.content h2 {
+  margin-bottom: 2rem;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.2rem;
+  color: white;
+  text-align: center;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b649, #8854c0);
+  background-size: 300% 300%;
+  animation: gradient 8s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 30px rgba(136, 84, 192, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid #8854c0;
+}
+
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.topic-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.topic-card::before,
+.topic-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, 
+    rgba(255, 107, 107, 0.2),
+    rgba(78, 205, 196, 0.2),
+    rgba(69, 182, 73, 0.2),
+    rgba(136, 84, 192, 0.2)
+  );
+  background-size: 200% 200%;
+  z-index: -1;
+  transition: all 0.5s ease;
+  opacity: 0;
+}
+
+.topic-card::after {
+  filter: blur(15px);
+  transform: scale(0.8);
+}
+
+.topic-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.topic-card:hover::before,
+.topic-card:hover::after {
+  opacity: 1;
+  animation: gradientShift 3s ease infinite;
+}
+
+.topic-card h3 {
+  color: #fff;
+  font-size: 1.2rem;
+  margin: 1rem 0;
+  background: linear-gradient(45deg, #8854c0, #4a90e2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.topic-card p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+.topic-card:hover {
+  transform: translateY(-4px);
+}
+
+.topic-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.topic-card h3 {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.topic-card p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+
+
+
+.user-email {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin-right: 1rem;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.logout-button:hover {
+  background-color: rgba(255, 107, 107, 0.2);
+}
+
+
+
+
+
+
+
+
+
+.topic-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+
+
+
+
+/* DELETE QUIZ */
+.delete-quiz-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 0, 0, 0.2);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2em;
+  opacity: 0.7;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+  z-index: 5;
+}
+.delete-quiz-btn:hover {
+  opacity: 1;
+  background-color: rgba(255, 0, 0, 0.4);
+}

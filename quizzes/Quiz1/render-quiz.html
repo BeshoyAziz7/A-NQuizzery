@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title id="quizTitleDisplay">Quiz</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+
+  <link href="../../style.css" rel="stylesheet" type="text/css" />
+  <link href="stylequiz1.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <img src="../../images/N LOGO.png" alt="Logo" class="nav-logo">
+      <span class="nav-brand">Quizzery</span>
+      <a href="../../index.html" class="nav-link">Dashboard</a>
+      <a href="#" class="nav-link">Library</a>
+      <a href="#" class="nav-link">Reports</a>
+    </div>
+    <div class="nav-right">
+      <div class="search-bar">
+        <input type="text" placeholder="Search quizzes...">
+        <button class="search-button">
+          <span class="material-icons">search</span>
+        </button>
+      </div>
+      <button class="create-button" id="createQuizButton" style="display: none;">
+        <span class="material-icons">add</span>
+        Create Quiz
+      </button>
+      <img src="../../images/kitten.jpg" alt="Profile" class="profile-pic">
+      <div class="user-email" id="userEmailDisplay"></div>
+      <button class="logout-button" onclick="handleLogout()">
+        <span class="material-icons">logout</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="content">
+    <div id="scoreDisplay"></div>
+    <div class="RadioContent" id="quizContainer">
+      <div class="question" id="quizQuestion">Loading quiz...</div>
+
+
+      <div class="radio-input" id="quizOptions"></div>
+      <button id="submitBtn">Submit Answer</button>
+      <button id="nextBtn" style="display:none; margin-top: 10px;">Next Question</button>
+      <div id="result"></div>
+      <div id="quizProgress" style="text-align: center; margin-top: 20px; color: rgba(255,255,255,0.7);"></div>
+    </div>
+  </main>
+
+  <div class="countdown-container" id="countdown">
+    <div class="countdown-number" id="countdown-number">5</div>
+    <div data-js="astro" class="astronaut">
+      <div class="head"></div><div class="arm arm-left"></div><div class="arm arm-right"></div><div class="body"><div class="panel"></div></div><div class="leg leg-left"></div><div class="leg leg-right"></div><div class="schoolbag"></div>
+    </div>
+    <div data-js="astro" class="astronaut2">
+      <div class="head"></div><div class="arm arm-left"></div><div class="arm arm-right"></div><div class="body"><div class="panel"></div></div><div class="leg leg-left"></div><div class="leg leg-right"></div><div class="schoolbag"></div>
+    </div>
+  </div>
+
+  <script src="../../js/main.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="render-quiz.js"></script>
+
+
+</body>
+</html>

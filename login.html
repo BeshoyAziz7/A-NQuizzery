@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>QuizBuilder - Login</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <img src="images/SIGNIN.png" alt="Logo" class="login-logo">
+      <h2>Welcome to QuizBuilder</h2>
+      <form id="loginForm" onsubmit="return handleLogin(event)">
+        <div class="input-group">
+          <input type="email" id="email" placeholder="Email" required>
+        </div>
+        <div class="input-group">
+          <input type="password" id="password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="login-button">Sign In</button>
+      </form>
+      <div class="auth-divider">or</div>
+      <button class="signup-button" onclick="handleSignup()">Sign Up</button>
+    </div>
+  </div>
+
+
+
+
+
+
+  <script src="js/auth.js"></script>
+  <script src="js/login.js"></script>
+  
+</body>
+</html>

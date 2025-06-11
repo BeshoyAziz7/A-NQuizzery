@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Create New Quiz | QuizBuilder</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    /* Add specific styles for create-quiz.html if needed, or integrate into style.css */
+    .create-quiz-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    .create-quiz-container h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b649, #8854c0);
+      background-size: 300% 300%;
+      animation: gradient 8s ease infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    .form-group input[type="text"],
+    .form-group input[type="number"],
+    .form-group textarea {
+      width: calc(100% - 20px);
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      font-size: 1em;
+    }
+    .form-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .question-block {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 25px;
+      position: relative;
+    }
+    .question-block h3 {
+      color: #fff;
+      margin-top: 0;
+      margin-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 10px;
+    }
+    .option-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .option-group input[type="radio"] {
+      margin-right: 10px;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    .option-group input[type="text"] {
+      flex-grow: 1;
+      margin-right: 10px;
+    }
+    .option-group .remove-option-btn {
+      background: none;
+      border: none;
+      color: #ff6b6b;
+      cursor: pointer;
+      font-size: 1.5em;
+    }
+    .add-question-btn, .add-option-btn {
+      display: block;
+      width: auto;
+      padding: 10px 20px;
+      background: linear-gradient(45deg, #45b649, #4ecdc4);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+      margin-top: 15px;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .add-question-btn:hover, .add-option-btn:hover {
+      background: linear-gradient(45deg, #4ecdc4, #45b649);
+      transform: translateY(-2px);
+    }
+    .submit-quiz-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(45deg, #8854c0, #4a90e2);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.2em;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 30px;
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .submit-quiz-btn:hover {
+      background: linear-gradient(45deg, #4a90e2, #8854c0);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(136, 84, 192, 0.4);
+    }
+    .remove-question-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: #ff6b6b;
+      cursor: pointer;
+      font-size: 1.8em;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+    .remove-question-btn:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <img src="images/N LOGO.png" alt="Logo" class="nav-logo">
+      <span class="nav-brand">Quizzery</span>
+      <a href="index.html" class="nav-link">Dashboard</a>
+      <a href="#" class="nav-link">Library</a>
+      <a href="#" class="nav-link">Reports</a>
+    </div>
+    <div class="nav-right">
+      <div class="search-bar">
+        <input type="text" placeholder="Search quizzes...">
+        <button class="search-button">
+          <span class="material-icons">search</span>
+        </button>
+      </div>
+      <button class="create-button" id="createQuizButton" style="display: flex;">
+        <span class="material-icons">add</span>
+        Create Quiz
+      </button>
+      <img src="images/kitten.jpg" alt="Profile" class="profile-pic">
+      <div class="user-email" id="userEmailDisplay"></div>
+      <button class="logout-button" onclick="handleLogout()">
+        <span class="material-icons">logout</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="content">
+    <div class="create-quiz-container">
+      <h2>Create a New Quiz</h2>
+      <form id="createQuizForm">
+        <div class="form-group">
+          <label for="quizTitle">Quiz Title:</label>
+          <input type="text" id="quizTitle" placeholder="e.g., Numbers Fundamentals" required>
+        </div>
+        <div class="form-group">
+          <label for="quizImage">Quiz Image URL (Optional):</label>
+          <input type="text" id="quizImage" placeholder="e.g., https://placehold.co/100x100">
+        </div>
+        <div class="form-group">
+          <label for="quizActivities">Number of Activities/Plays (Optional):</label>
+          <input type="number" id="quizActivities" value="0" min="0">
+        </div>
+
+        <h3>Questions:</h3>
+        <div id="questionsContainer">
+          </div>
+        <button type="button" class="add-question-btn" onclick="addQuestion()">
+          <span class="material-icons">add</span> Add Question
+        </button>
+        
+        <button type="submit" class="submit-quiz-btn">Submit Quiz</button>
+      </form>
+    </div>
+  </main>
+
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/create-quiz.js"></script> </body>
+</html>

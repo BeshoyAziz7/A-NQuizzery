@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Numbers | QuizBuilder</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <link href="../../style.css" rel="stylesheet" type="text/css" />
+  <link href="stylequiz1.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+
+
+
+
+
+
+
+
+
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <img src="../../images/" alt="Logo" class="nav-logo">
+      <span class="nav-brand">QuizBuilder</span>
+      <a href="../../index.html" class="nav-link">Dashboard</a>
+      <a href="#" class="nav-link">Library</a>
+      <a href="#" class="nav-link">Reports</a>
+    </div>
+    <div class="nav-right">
+      <div class="search-bar">
+        <input type="text" placeholder="Search quizzes...">
+        <button class="search-button">
+          <span class="material-icons">search</span>
+        </button>
+      </div>
+      <button class="create-button">
+        <span class="material-icons">add</span>
+        Create
+      </button>
+      <img src="https://placekitten.com/32/32" alt="Profile" class="profile-pic">
+
+      <div class="user-email" id="userEmailDisplay"></div>
+      <button class="logout-button" onclick="window.location.href='../../login.html'">
+        <span class="material-icons">logout</span>
+      </button>
+    </div>
+  </nav>
+
+
+  
+
+  
+
+
+  <main class="content">
+
+    <div id="scoreDisplay"></div> 
+
+
+    <div class="RadioContent">
+      <div class="question">What is the capital of France?</div>
+      <div class="radio-input">
+        <label class="option">
+            <input name="radio" type="radio" class="input" value="London">
+            <span class="option-text">London</span>
+        </label>
+        <label class="option">
+            <input name="radio" type="radio" class="input" value="Paris">
+            <span class="option-text">Paris</span>
+        </label>
+        <label class="option">
+            <input name="radio" type="radio" class="input" value="Berlin">
+            <span class="option-text">Berlin</span>
+        </label>
+        <label class="option">
+          <input name="radio" type="radio" class="input" value="Sydney">
+          <span class="option-text">Sydney</span>
+        </label>
+    </div>
+    <button id="submitBtn">Submit Answer</button>
+    <div id="result"></div>
+
+    </div>
+
+
+  </main>
+
+
+
+
+
+
+
+
+
+  <div class="countdown-container" id="countdown">
+
+    <div class="countdown-number" id="countdown-number">5</div>
+<div data-js="astro" class="astronaut">
+  <div class="head"></div>
+  <div class="arm arm-left"></div>
+  <div class="arm arm-right"></div>
+  <div class="body">
+    <div class="panel"></div>
+  </div>
+  <div class="leg leg-left"></div>
+  <div class="leg leg-right"></div>
+  <div class="schoolbag"></div>
+</div>
+
+<div data-js="astro" class="astronaut2">
+  <div class="head"></div>
+  <div class="arm arm-left"></div>
+  <div class="arm arm-right"></div>
+  <div class="body">
+    <div class="panel"></div>
+  </div>
+  <div class="leg leg-left"></div>
+  <div class="leg leg-right"></div>
+  <div class="schoolbag"></div>
+</div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+  <script>
+
+
+    // Countdown functionality
+    const countdownEl = document.getElementById('countdown');
+    const numberEl = document.getElementById('countdown-number');
+    
+    let count = 5;
+    const countdown = setInterval(() => {
+      count--;
+      numberEl.textContent = count;
+      
+      if (count <= 0) {
+        clearInterval(countdown);
+        countdownEl.style.opacity = '0';
+        setTimeout(() => {
+          countdownEl.classList.add('hidden');
+        }, 500);
+      }
+    }, 1000);
+
+
+
+
+
+// Replace the existing submitBtn event listener with this:
+document.getElementById('submitBtn').addEventListener('click', function() {
+    const selectedOption = document.querySelector('input[name="radio"]:checked');
+    const resultDiv = document.getElementById('result');
+    const options = document.querySelectorAll('.option');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    if (!selectedOption) {
+        resultDiv.textContent = "Please select an answer!";
+        resultDiv.style.display = "block";
+        resultDiv.className = "incorrect";
+        return;
+    }
+    
+    const userAnswer = selectedOption.value;
+    const correctAnswer = "Paris";
+    
+    // Disable all options
+    options.forEach(option => {
+        option.classList.add('disabled-option');
+    });
+    
+    // Disable submit button
+    submitBtn.disabled = true;
+    
+    // Calculate score (100% if correct, 0% if wrong)
+    const score = userAnswer === correctAnswer ? 100 : 0;
+    
+    if (userAnswer === correctAnswer) {
+        resultDiv.textContent = "Correct!";
+        resultDiv.className = "correct";
+    } else {
+        resultDiv.textContent = `Incorrect. The correct answer is ${correctAnswer}.`;
+        resultDiv.className = "incorrect";
+    }
+    
+    // Create and display score
+    const scoreDisplayDiv = document.getElementById('scoreDisplay');
+    scoreDisplayDiv.className = 'score-display';
+    scoreDisplayDiv.innerHTML = `🎯 Your Score: <span style="font-size: 1.2em">${score}%</span> 🎯`;    
+    resultDiv.style.display = "block";
+});
+
+
+
+  </script>
+
+  <!-- Scripts -->
+  <script src="../../js/main.js"></script>
+  <script src="../../js/auth.js"></script>
+</body>
+</html>
